@@ -13,7 +13,7 @@ public class AppUser {
 
     private String password;
     private LocalDate regDate;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_details_details_id")
     Details userDetails;
 

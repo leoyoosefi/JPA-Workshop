@@ -1,16 +1,33 @@
 package se.lexicon.jpaworkshop.entities;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
-
+@Entity
 public class BookLoan {
-
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+@Id
+@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int loanId;
     private LocalDate loanDate;
     private LocalDate dueDate;
     private boolean returned;
+    @ManyToOne
+    @JoinColumn(name = "borrower_app_user_id")
     AppUser borrower;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
     Book book;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public BookLoan(int loanId, LocalDate loanDate, LocalDate dueDate, boolean returned, AppUser borrower, Book book) {
         this.loanId = loanId;
@@ -19,6 +36,10 @@ public class BookLoan {
         this.returned = returned;
         this.borrower = borrower;
         this.book = book;
+    }
+
+    public BookLoan() {
+
     }
 
     public int getLoanId() {
